@@ -60,7 +60,7 @@ memory addressing: D(Rb, Ri, S) => Mem[Reg[Rb] + S * Reg[Ri] + D]
 leaq src, dest(src is address mode expression)  
 uses: `p = &x[i]`, `x + k * y`
 
-$rip(instruction pointer)  
+%rip(instruction pointer)  
 status of recent tests(CF, ZF, SF, OF)  
 CF: carry flag(for unsigned)  
 SF: sign flag(for signed)  
@@ -72,7 +72,9 @@ testq src2,src1 like computing src1 & src2 without setting destination, and sett
 movzbl(clear high order bits)  
 
 (trick)if `x > 6 && x < 0`, `(unsigned)x > 6`  
-switch: create jump table, or transform to if-else  
+switch: create jump table, or transform to if-else
+
+rep; ret: just for processor to run fast
 
 ABI(application binary interface)  
 call: push + jmp  
@@ -114,9 +116,9 @@ buffer overflow attack:
 buffer overflow attacks solutions:  
 - avoid overflow
 - system-level protection
-    - randomized stack offsets
+    - address-space layout randomization(ASLR)
     - nonexecutable code segments
-- stack canaries: place special value beyond the buffer; gcc: -fstack-protector(now default) %fs:...
+- stack canaries: place special value beyond the buffer; gcc: -fno-stack-protector(now default) %fs:...
 
 union
 - allocate according to largest element
