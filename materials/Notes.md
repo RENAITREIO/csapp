@@ -137,7 +137,6 @@ procedure calls
 removing aliasing  
 
 cycles per element(CPE)  
-superscalar processor pipeline  
 
 for integer, loop unrolling with
 - reassociated computation
@@ -146,6 +145,11 @@ for integer, loop unrolling with
 for float, YMM registers  
 branch prediction through loop
 
+performance limitation:  
+- latency bound
+- throughput bound
+
+superscalar processor pipeline  
 
 
 
