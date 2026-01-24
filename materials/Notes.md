@@ -124,7 +124,12 @@ union
 - allocate according to largest element
 - can only use one field at a time
 
-optimize:  
+writing an efficient program
+- select appropriate algorithms and data structures
+- capabilities and limitations of optimazing compilers
+- exploiting parallelism
+
+optimize methods:  
 reduce frequency  
 replace costly operation with simpler one  
 reuse portions of expression  
@@ -133,12 +138,13 @@ removing aliasing
 
 cycles per element(CPE)  
 superscalar processor pipeline  
+
 for integer, loop unrolling with
 - reassociated computation
 - separate accumulators
+
 for float, YMM registers  
 branch prediction through loop
-
 
 
 
