@@ -154,7 +154,6 @@ superscalar processor pipeline
 data-flow flow
 
 
-
 reflexion:  
 dont use signed data types overflow  
 Virtual Address Space
