@@ -124,6 +124,7 @@ union
 - allocate according to largest element
 - can only use one field at a time
 
+## Program Optimization
 writing an efficient program
 - select appropriate algorithms and data structures
 - capabilities and limitations of optimazing compilers
@@ -149,9 +150,73 @@ performance limitation:
 - latency bound
 - throughput bound
 
-superscalar processor pipeline  
+superscalar processor pipeline
 
 data-flow flow
+
+loop unrolling
+accumulator
+reassociation transformation
+
+other limitations:  
+register spilling  
+misprediction penalty
+
+load performance  
+store performance
+
+tools: gprof
+
+## The Memory Hierarchy
+random-access memory(RAM)(volatile memorys)
+- SRAM
+- DRAM
+
+nonvolatile memorys
+- ROM
+- PROM
+- EPROM
+- EEPROM
+
+I/O bus
+
+disk  
+$T_{access}=T_{seek}+T_{rotation}+T_{transfer}$
+
+SSD:  
+flash chip-die-plane-block-page
+
+![Memory Hierarchy](../pic/MemoryHierarchy.png)
+
+## Cache Memories
+locality
+- temporal locality
+- spatial locality
+
+cache hit/miss
+- code miss
+- conflict miss
+- capacity miss
+
+cache-set-line-[valid(1 bit), tag, block(B bytes)]  
+address: Tag + Set index + Block index  
+capacity: C = E * B * S
+
+- set selection
+- line matching
+- word extraction
+
+direct-mapped cache  
+set associative cache  
+full associative cache  
+
+write hit
+- write-through
+- write-back
+
+write miss
+- write-allocate
+- no-write-allocate
 
 
 reflexion:  
