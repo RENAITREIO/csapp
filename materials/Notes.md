@@ -154,8 +154,8 @@ superscalar processor pipeline
 
 data-flow flow
 
-loop unrolling
-accumulator
+loop unrolling  
+accumulator  
 reassociation transformation
 
 other limitations:  
