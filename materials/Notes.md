@@ -206,9 +206,13 @@ capacity: C = E * B * S
 - line matching
 - word extraction
 
-direct-mapped cache  
-set associative cache  
-full associative cache  
+cache structure
+- direct-mapped cache
+- set associative cache
+    - choose the line to replaced at random
+    - least frequently used(LFU)
+    - least recently used(LRU)
+- full associative cache
 
 write hit
 - write-through
@@ -221,4 +225,5 @@ write miss
 
 reflexion:  
 dont use signed data types overflow  
-Virtual Address Space
+Virtual Address Space  
+timestamp may be a trouble(1s)
