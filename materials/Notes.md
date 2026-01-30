@@ -222,6 +222,74 @@ write miss
 - write-allocate
 - no-write-allocate
 
+## Linking
+![Compiling](../pic/compile.png)
+
+symbol resolution  
+relocation
+
+object file
+- relocatable object file(*.o)
+- executable object file(a.out)
+- shared object file(*.so)
+
+executable and linkable format(ELF)
+
+<!-- ELF object file format
+- elf header
+- segment header table(required for executables)
+- .init
+- .text section
+- .rodata section
+- .data section
+- .bss section(better save space)
+- .symtab section
+- .rel.text section
+- .rel.data section
+- .debug section(gcc -g)
+- section header table -->
+
+relocatable ELF vs. executable ELF
+![ELF diff](../pic/ELF.png)
+
+linker symbols
+- global symbols
+- external symbols
+- local symbols(static)
+
+program symbols
+- strong: procedures and initialized globals
+- weak: uninitialized globals
+
+linker's symbol rules:
+- multiple strong symbols are not allowd
+- given a strong symbol and multiple weak symbols, choose the strong symbol
+- if there are multiple weak symbols, pick an arbitrary one(can override this with gcc -fno-common)
+
+relocation entries*(in .rel.text/data)
+
+![memory allocation](../pic/exemem.png)
+
+static libraries(.a archive files)(old)  
+problem: order matters
+
+3 sets for relocation: E, U, D
+
+shared libraries(.so)(modern)
+
+library interpositioning
+- compile time(use #define)
+- link time(-Wl,--wrap,func)
+- load/run time(LD_PRELOAD)
+
+
+
+
+
+
+
+
+
 
 reflexion:  
 dont use signed data types overflow  
