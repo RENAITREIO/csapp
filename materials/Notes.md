@@ -249,7 +249,7 @@ executable and linkable format(ELF)
 - .debug section(gcc -g)
 - section header table -->
 
-relocatable ELF vs. executable ELF
+executable ELF vs. relocatable ELF
 ![ELF diff](../pic/ELF.png)
 
 linker symbols
@@ -281,6 +281,101 @@ library interpositioning
 - compile time(use #define)
 - link time(-Wl,--wrap,func)
 - load/run time(LD_PRELOAD)
+
+## Exceptional Control Flow(ECF)
+the sequence of instructions is CPU's control flow
+
+ECF exists at all levels of a computer system  
+low level:
+- exception
+
+higher level:
+- process context switch
+- signals
+- nonlocal jumps
+
+exceptions: a transfer of control to the OS kernel in response to some event
+- asynchronous exceptions(interrupts)  
+example: timer, I/O interrupt
+- synchronous exceptions
+    - traps  
+    example: system calls, breakpoint traps,special instructions
+    - faults  
+    example: page faults, protection faults, floating point exceptions
+    - aborts  
+    example: illegal instruction, parity error, machine check
+
+`syscall` instruction
+
+processes: an instance of a running program  
+provides 2 abstractions:
+- logical control flow
+- private address space  
+state(programmer perspective):
+- running
+- stopped(SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU)
+- terminated
+    - receiving a signal
+    - returning from the main routine
+    - calling the exit function
+
+concurrent processes
+
+context switching
+- saves the context of the current process
+- restores the saved context of some previously preempted process
+- passes control to this newly restored process
+
+obtaining process id  
+`pid_t getpid(void)`  
+`pid_t getppid(void)`
+
+terminating processes  
+`void exit(int status)`
+
+creating processes  
+`pid_t fork(void)` from `sys/tpyes.h, unistd.h`  
+call once, return twice
+
+reaping child processes  
+"zombie"
+
+synchronizing with children  
+`int wait(int *child_status)`  
+`pid_t waitpid(pid_t pid, int &status, int options)`
+
+loading and running programs  
+`int execve(char *filename, char *argv[], char *envp[])`
+
+signals: a small message that notifies a process that an event of some type has occurred in the system  
+sending
+- with the /bin/kill program
+- from the keyboard
+- with the kill function
+- with the alarm function
+
+receiving
+- terminate
+- terminate and dump core
+- suspends until restarted by a SIGCONT signal
+- ignore
+
+process groups  
+`pid_t getpgrp(void)`  
+`pid_t setpgrp(pid_t pid, pid_t pgid)`
+
+installing signal handlers  
+`handler_t *signal(int signum, handler_t *handler)`
+
+writing safe handlers
+- keep your handlers as simple as possible
+- call only async-signal-safe functions in your handlers
+- save and restore `errno` on entry and exit
+- protect accesses to shared data structures by temporarily blocking all signals
+- declare global variables as `volatile`
+- declare global flags as `volatile sig_atomic_t`
+
+async-signal-safety
 
 
 
