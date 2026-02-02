@@ -310,7 +310,8 @@ example: timer, I/O interrupt
 processes: an instance of a running program  
 provides 2 abstractions:
 - logical control flow
-- private address space  
+- private address space
+
 state(programmer perspective):
 - running
 - stopped(SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU)
@@ -360,6 +361,8 @@ receiving
 - suspends until restarted by a SIGCONT signal
 - ignore
 
+pending and blocking signal
+
 process groups  
 `pid_t getpgrp(void)`  
 `pid_t setpgrp(pid_t pid, pid_t pgid)`
@@ -376,6 +379,57 @@ writing safe handlers
 - declare global flags as `volatile sig_atomic_t`
 
 async-signal-safety
+
+## System-Level I/O
+unix I/O  
+
+file types
+- regular file
+- directory
+- socket
+- named pipes(FIFOs)
+- symbolic links
+- character and block devices
+
+end of line(EOL) indicators in other systems
+- linux and mac os: '\n'(0xa)
+- windows and internet protocals: '\r\n'(0xd 0xa)
+
+opening files  
+file descriptor
+
+closing files
+
+reading files
+
+writing files
+
+RIO package
+
+file metadata
+
+I/O redirection
+
+standard I/O functions
+
+`int fflush(FILE *stream)`
+
+## Virtual Memory
+- uses main memory efficiently
+- simplifies memory management
+- isolates address spaces
+
+physical addressing
+
+MMU
+
+page table
+
+page hit
+
+page fault
+
+
 
 
 
