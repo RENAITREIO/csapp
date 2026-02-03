@@ -419,17 +419,42 @@ standard I/O functions
 - simplifies memory management
 - isolates address spaces
 
-physical addressing
+physical addressing  
+virtual addressing
 
-MMU
+memory management unit(MMU)
 
-page table
+virtual page(VP)  
+physical page(PP)
 
-page hit
+page table is a array of page table entries(PTE)
 
+page hit  
 page fault
 
+address translation:  
+MAP: $VAS\rightarrow PAS\cup \varnothing$  
 
+translation lookaside buffer(TLB): cache of PPN of PTEs
+
+multi-level page tables: save memory
+
+![Virtual Memory Space of Linux](../pic/virtualmem.png)
+
+linux organizes VM as collection of areas
+
+memory mapping: VM->object in disk
+- regular file
+- anonymous file(demand-zero page)
+
+shared objects  
+private copy-on-write(COW) objects
+
+user-level memory mapping  
+`void *mmap(void *start, size_t length, int prot, int flags, int fd, off_t offset)`  
+`int munmap(void *start, size_t length)`
+
+## Storage Allocation
 
 
 
