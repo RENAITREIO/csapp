@@ -235,20 +235,6 @@ object file
 
 executable and linkable format(ELF)
 
-<!-- ELF object file format
-- elf header
-- segment header table(required for executables)
-- .init
-- .text section
-- .rodata section
-- .data section
-- .bss section(better save space)
-- .symtab section
-- .rel.text section
-- .rel.data section
-- .debug section(gcc -g)
-- section header table -->
-
 executable ELF vs. relocatable ELF
 ![ELF diff](../pic/ELF.png)
 
@@ -266,7 +252,7 @@ linker's symbol rules:
 - given a strong symbol and multiple weak symbols, choose the strong symbol
 - if there are multiple weak symbols, pick an arbitrary one(can override this with gcc -fno-common)
 
-relocation entries*(in .rel.text/data)
+relocation entries(in .rel.text/data)
 
 ![memory allocation](../pic/exemem.png)
 
@@ -395,24 +381,48 @@ end of line(EOL) indicators in other systems
 - linux and mac os: '\n'(0xa)
 - windows and internet protocals: '\r\n'(0xd 0xa)
 
+file descriptor(int)  
+stdin(0), stdout(1), stderr(2)
+
 opening files  
-file descriptor
+`int open(char *filename, int flags, mode_t mode)`
 
-closing files
+closing files  
+`int close(int fd)`
 
-reading files
+reading files  
+`ssize_t read(int fd, void *buf, size_t n)`
 
-writing files
+writing files  
+`ssize_t write(int fd, const void *buf, size_t n)`
 
-RIO package
+RIO package  
+`ssize_t rio_readn(int fd, void *usrbuf, size_t n)`  
+`ssize_t rio_writen(int fd, void *usrbuf, size_t n)`  
+`void rio_readinitb(rio_t *rp, int fd)`  
+`ssize_t rio_readlineb(rio_t *rp, void *usrbuf, size_t maxlen)`  
+`ssize_t rio_readnb(rio_t *rp, void *usrbuf, size_t n)`
 
-file metadata
+file metadata  
+`int stat(const char *filename, struct stat *buf)`  
+`int fstat(int fd, struct stat *buf)`
 
-I/O redirection
+read directory  
+`DIR *opendir(const char *name)`  
+`struct dirent *readdir(DIR *dirp)`  
+`int closedir(DIR *dirp)`
+
+unix kernel represents open files:
+- descriptor table
+- open file table
+- v-node table
+
+I/O redirection  
+`int dup2(int oldfd, int newfd)`
 
 standard I/O functions
 
-`int fflush(FILE *stream)`
+printf need `'\n'` or `int fflush(FILE *stream)`
 
 ## Virtual Memory
 - uses main memory efficiently
@@ -455,6 +465,56 @@ user-level memory mapping
 `int munmap(void *start, size_t length)`
 
 ## Storage Allocation
+dynamic memory allocation
+
+top of heap(brk pointer)
+
+allocators
+- explicit allocator
+- implicit allocator
+
+`void *malloc(size_t size)`  
+`void free(void *p)`
+
+`void *sbrk(intptr_t incr)`
+
+allocator performance:  
+- throughput  
+- peak memory utilization  
+$U_k=\frac{max_{i\leq k}P_i}{H_k}$
+
+fragmentation
+- internal fragmentation
+- external fragmentation
+
+implicit list  
+placement policy
+- first fit
+- next fit
+- best fit
+
+coalescing
+- immediate coalescing
+- deferred coalescing
+
+bidirectional coalescing: add boundary tags
+
+explicit free list  
+insertion policy
+- LIFO
+- address-ordered
+
+segregated free list
+- simple segregated storage
+- segregated fit
+- buddy system
+
+garbage collection  
+classical GC algorithms
+- Mark-and-sweep collection
+- reference counting
+- copying collection
+- generational collectors
 
 
 
