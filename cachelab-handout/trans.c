@@ -23,117 +23,126 @@ int is_transpose(int M, int N, int A[N][M], int B[M][N]);
 
 void transpose_32x32(int M, int N, int A[N][M], int B[M][N])
 {
-    for(int i = 0; i < 32; i += 8)
-        for(int j = 0; j < 32; j += 8)
-            for (int k = i; k < i + 8; k++)
+    for (int i = 0; i < N; i+=8)
+        for (int j = 0; j < M; j+=8)
+            for (int k = 0; k < 8; k++)
             {
-                int a_0 = A[k][j];
-                int a_1 = A[k][j+1];
-                int a_2 = A[k][j+2];
-                int a_3 = A[k][j+3];
-                int a_4 = A[k][j+4];
-                int a_5 = A[k][j+5];
-                int a_6 = A[k][j+6];
-                int a_7 = A[k][j+7];
-                B[j][k] = a_0;
-                B[j+1][k] = a_1;
-                B[j+2][k] = a_2;
-                B[j+3][k] = a_3;
-                B[j+4][k] = a_4;
-                B[j+5][k] = a_5;
-                B[j+6][k] = a_6;
-                B[j+7][k] = a_7;
+                int a0 = A[i+k][j+0];
+                int a1 = A[i+k][j+1];
+                int a2 = A[i+k][j+2];
+                int a3 = A[i+k][j+3];
+                int a4 = A[i+k][j+4];
+                int a5 = A[i+k][j+5];
+                int a6 = A[i+k][j+6];
+                int a7 = A[i+k][j+7];
+                B[j+0][i+k] = a0;
+                B[j+1][i+k] = a1;
+                B[j+2][i+k] = a2;
+                B[j+3][i+k] = a3;
+                B[j+4][i+k] = a4;
+                B[j+5][i+k] = a5;
+                B[j+6][i+k] = a6;
+                B[j+7][i+k] = a7;
             }
 }
 
 void transpose_64x64(int M, int N, int A[N][M], int B[M][N])
 {
-    int a_0, a_1, a_2, a_3, a_4, a_5, a_6, a_7;
-    for (int i = 0; i < 64; i += 8){
-        for (int j = 0; j < 64; j += 8){
-            for (int k = i; k < i + 4; k++){
-                // 得到A的第1,2块
-                a_0 = A[k][j + 0];
-                a_1 = A[k][j + 1];
-                a_2 = A[k][j + 2];
-                a_3 = A[k][j + 3];
-                a_4 = A[k][j + 4];
-                a_5 = A[k][j + 5];
-                a_6 = A[k][j + 6];
-                a_7 = A[k][j + 7];
-                // 复制给B的第1,2块
-                B[j + 0][k] = a_0;
-                B[j + 1][k] = a_1;
-                B[j + 2][k] = a_2;
-                B[j + 3][k] = a_3;
-                B[j + 0][k + 4] = a_4;
-                B[j + 1][k + 4] = a_5;
-                B[j + 2][k + 4] = a_6;
-                B[j + 3][k + 4] = a_7;
-            }
-            for (int k = j; k < j + 4; k++){
-                // 得到B的第2块
-                a_0 = B[k][i + 4];
-                a_1 = B[k][i + 5];
-                a_2 = B[k][i + 6];
-                a_3 = B[k][i + 7];
-                // 得到A的第3块
-                a_4 = A[i + 4][k];
-                a_5 = A[i + 5][k];
-                a_6 = A[i + 6][k];
-                a_7 = A[i + 7][k];
-                // 复制给B的第2块
-                B[k][i + 4] = a_4;
-                B[k][i + 5] = a_5;
-                B[k][i + 6] = a_6;
-                B[k][i + 7] = a_7;
-                // B原来的第2块移动到第3块
-                B[k + 4][i + 0] = a_0;
-                B[k + 4][i + 1] = a_1;
-                B[k + 4][i + 2] = a_2;
-                B[k + 4][i + 3] = a_3;
-            }
-            for (int k = i + 4; k < i + 8; k++)
+    int a0, a1, a2, a3, a4, a5, a6, a7;
+    for (int i = 0; i < N; i+=8)
+        for (int j = 0; j < M; j+=8)
+        {
+            for (int k = 0; k < 4; k++)
             {
-                // 处理第4块
-                a_4 = A[k][j + 4];
-                a_5 = A[k][j + 5];
-                a_6 = A[k][j + 6];
-                a_7 = A[k][j + 7];
-                B[j + 4][k] = a_4;
-                B[j + 5][k] = a_5;
-                B[j + 6][k] = a_6;
-                B[j + 7][k] = a_7;
+                a0 = A[i+k][j+0];
+                a1 = A[i+k][j+1];
+                a2 = A[i+k][j+2];
+                a3 = A[i+k][j+3];
+                a4 = A[i+k][j+4];
+                a5 = A[i+k][j+5];
+                a6 = A[i+k][j+6];
+                a7 = A[i+k][j+7];
+                B[j+0][i+k] = a0;
+                B[j+1][i+k] = a1;
+                B[j+2][i+k] = a2;
+                B[j+3][i+k] = a3;
+                B[j+0][i+k+4] = a4;
+                B[j+1][i+k+4] = a5;
+                B[j+2][i+k+4] = a6;
+                B[j+3][i+k+4] = a7;
+            }
+            for (int k = 4; k < 8; k++)
+            {
+                a0 = A[i+k][j+0];
+                a1 = A[i+k][j+1];
+                a2 = A[i+k][j+2];
+                a3 = A[i+k][j+3];
+                a4 = A[i+k][j+4];
+                a5 = A[i+k][j+5];
+                a6 = A[i+k][j+6];
+                a7 = A[i+k][j+7];
+                B[j+4][i+k-4] = a0;
+                B[j+5][i+k-4] = a1;
+                B[j+6][i+k-4] = a2;
+                B[j+7][i+k-4] = a3;
+                B[j+4][i+k] = a4;
+                B[j+5][i+k] = a5;
+                B[j+6][i+k] = a6;
+                B[j+7][i+k] = a7;
+            }
+            for (int k = 0; k < 4; k++)
+            {
+                a4 = B[j+k+4][i+0];
+                a5 = B[j+k+4][i+1];
+                a6 = B[j+k+4][i+2];
+                a7 = B[j+k+4][i+3];
+                a0 = B[j+k][i+4];
+                a1 = B[j+k][i+5];
+                a2 = B[j+k][i+6];
+                a3 = B[j+k][i+7];
+                
+                B[j+k][i+4] = a4;
+                B[j+k][i+5] = a5;
+                B[j+k][i+6] = a6;
+                B[j+k][i+7] = a7;
+                B[j+k+4][i+0] = a0;
+                B[j+k+4][i+1] = a1;
+                B[j+k+4][i+2] = a2;
+                B[j+k+4][i+3] = a3;
+                
             }
         }
-    }
 }
 
 void transpose_61x67(int M, int N, int A[N][M], int B[M][N])
 {
-    // int i, j;
-    // int a1, a2, a3, a4, a5, a6, a7, a8;
-    // for (i = 0; i < N; i++)
-    // {
-    //     for (j = 0; j < M; j++)
-    //     {
-    //         if (i == j)
-    //         {
-    //             if (i % 8 == 0)
-    //             {
-    //                 a1 = A[i][i];a2 = A[i+1][i+1];a3 = A[i+2][i+2];a4 = A[i+3][i+3];
-    //                 a5 = A[i+4][i+4];a6 = A[i+5][i+5];a7 = A[i+6][i+6];a8 = A[i+7][i+7];
-    //             }
-    //             else if ((i - 7) % 8 == 0)
-    //             {
-    //                 B[i-7][i-7] = a1;B[i-6][i-6] = a2;B[i-5][i-5] = a3;B[i-4][i-4] = a4;
-    //                 B[i-3][i-3] = a5;B[i-2][i-2] = a6;B[i-1][i-1] = a7;B[i][i] = a8;
-    //             }
-    //             continue;
-    //         }
-    //         B[j][i] = A[i][j];
-    //     }
-    // }
+    for (int i = 0; i < 56; i+=8)
+        for (int j = 0; j < 56; j+=8)
+            for (int k = 0; k < 8; k++)
+            {
+                int a0 = A[i+k][j+0];
+                int a1 = A[i+k][j+1];
+                int a2 = A[i+k][j+2];
+                int a3 = A[i+k][j+3];
+                int a4 = A[i+k][j+4];
+                int a5 = A[i+k][j+5];
+                int a6 = A[i+k][j+6];
+                int a7 = A[i+k][j+7];
+                B[j+0][i+k] = a0;
+                B[j+1][i+k] = a1;
+                B[j+2][i+k] = a2;
+                B[j+3][i+k] = a3;
+                B[j+4][i+k] = a4;
+                B[j+5][i+k] = a5;
+                B[j+6][i+k] = a6;
+                B[j+7][i+k] = a7;
+            }
+    for (int i = 0; i < 56; i++)
+        for (int j = 56; j < 61; j++)
+            B[j][i] = A[i][j];
+    for (int i = 56; i < 67; i++)
+        for (int j = 0; j < 61; j++)
+            B[j][i] = A[i][j];
 }
 
 char transpose_submit_desc[] = "Transpose submission";
