@@ -524,7 +524,6 @@ classical GC algorithms
 
 
 
-
 reflexion:  
 dont use signed data types overflow  
 Virtual Address Space  
